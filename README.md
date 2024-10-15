@@ -75,10 +75,3 @@ Admin login credentials should be stored in the database (can be added directly 
 
 ## 👥 Contributing
 We welcome contributions! Please fork this repository and create a pull request for review. Make sure to include detailed commit messages explaining your changes.
-
-## 🔑 License
-This project is licensed under the **MIT License**.
-
----
-
-### ✨ A complete, user-friendly platform for managing missing item complaints with a robust admin system.
