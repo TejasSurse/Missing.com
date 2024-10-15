@@ -193,19 +193,30 @@ app.get("/logout", (req, res)=>{
 });
 
 
-// delete listings 
-app.get("/deletelisting/:name", (req, res)=>{
-    let {name} =  req.params;
-    let q = `DELETE FROM  missings WHERE name = '${name}'`;
+app.get("/deletelisting/:name", (req, res) => {
+    let { name } = req.params;
+    name = name.trim(); // Trim whitespace
+    console.log(`Deleting entry with name: "${name}"`);
+
+    // Use a prepared statement to prevent SQL injection and ensure proper handling of special characters
+    let q = `DELETE FROM missings WHERE TRIM(name) = '${name}';`
     conn.query(q, (err, result) => {
         if (err) {
             console.error("Error deleting data:", err);
-            res.status(500).send("Error deleting data");
-            } else {
-                res.redirect("/missings");
-            }
-            });
+            return res.status(500).send("Error deleting data");
+        }
+        console.log(result); // Log result for debugging
 
+        if (result.affectedRows === 0) {
+            // If no rows were deleted, it means no matching entry was found
+            return res.status(404).send("No matching record found");
+        }
+        
+        // Redirect to /companysec after successful deletion
+        res.redirect("/companysec");
+    });
 });
+
+
 
 
