@@ -91,8 +91,7 @@ app.post("/signup", (req, res)=>{
         if(err){
             res.send("DATA not inserted");
         }else{
-            res.send("DATA inserted");
-            res.redirect("/missings.ejs");
+            res.render("login.ejs");
         }
     })
 });
